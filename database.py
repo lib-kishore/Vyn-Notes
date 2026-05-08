@@ -1,3 +1,4 @@
+import certifi
 from pymongo import MongoClient
 from datetime import datetime
 
@@ -5,12 +6,23 @@ from config import (
     MONGODB_CHATS_COLLECTION,
     MONGODB_DB,
     MONGODB_NOTES_COLLECTION,
+    MONGODB_TLS_ALLOW_INVALID_CERTS,
     MONGODB_URI,
 )
 
 class Database:
     def __init__(self):
-        self.client = MongoClient(MONGODB_URI)
+        client_options = {
+            "serverSelectionTimeoutMS": 10000,
+        }
+
+        if MONGODB_URI.startswith("mongodb+srv://") or "mongodb.net" in MONGODB_URI:
+            client_options["tls"] = True
+            client_options["tlsCAFile"] = certifi.where()
+            if MONGODB_TLS_ALLOW_INVALID_CERTS:
+                client_options["tlsAllowInvalidCertificates"] = True
+
+        self.client = MongoClient(MONGODB_URI, **client_options)
         self.db = self.client[MONGODB_DB]
         self.notes_collection = self.db[MONGODB_NOTES_COLLECTION]
         self.chat_collection = self.db[MONGODB_CHATS_COLLECTION]
