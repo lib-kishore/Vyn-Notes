@@ -213,7 +213,7 @@ logo1, logo2 = st.sidebar.columns([1, 3])
 
 with logo1:
     st.image(
-        "https://raw.githubusercontent.com/lib-kishore/Vyn-Notes/refs/heads/main/logo.png",
+        "https://raw.githubusercontent.com/MKishoreDev/Vyn-Notes/refs/heads/main/logo.png",
         width=42
     )
 
@@ -269,7 +269,7 @@ for note in recent_notes:
 
 if st.session_state.page == "home":
     st.title("👋 Welcome to VynNotes")
-    st.caption("Think • Write • Organize • Create")
+    st.caption("Write • Think • Win")
 
     c1, c2, c3, c4 = st.columns(4)
 

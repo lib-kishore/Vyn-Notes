@@ -1,9 +1,9 @@
 WELCOME_NOTE = """
 # 🎉 Welcome to VynNotes
 
-![VynNotes Banner](https://raw.githubusercontent.com/lib-kishore/Vyn-Notes/refs/heads/main/banner.png)
+![VynNotes Banner](https://raw.githubusercontent.com/MKishoreDev/Vyn-Notes/refs/heads/main/banner.png)
 
-**Write. Think. Solve.** ✨
+**Write. Think. Win.** ✨
 
 Welcome, This app is built for personal use of M.Kishore.
 
