@@ -483,6 +483,12 @@ else:
 
         st.rerun()
 
+# Keep websocket connection alive to prevent ping timeouts
+keepalive_placeholder = st.empty()
+import time
+current_time = int(time.time())
+keepalive_placeholder.caption(f"🟢 Active - {current_time}", help="Keeps the connection alive")
+
 st.divider()
 
 footer_col1, footer_col2, footer_col3 = st.columns([1, 2, 1])
