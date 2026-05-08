@@ -20,110 +20,237 @@
 
 ## 🚀 Overview
 
-**VynNotes** is a simple, personal AI note-taking app built for speed and clarity.
-It is intentionally lightweight and focused on personal productivity, not on workspace or collaboration features.
+**VynNotes** is a lightweight AI-powered note-taking app built with Streamlit and MongoDB.
+
+It focuses on:
+- fast note creation
+- clean editing
+- AI-assisted workflows
+- personal productivity without unnecessary complexity
+
+VynNotes is intentionally simple and designed for individual use.
 
 ---
 
 ## 💡 Motivation
 
-This project exists to solve a personal need:
-- a clean note editor for problem solving
-- a chance to learn **Streamlit** and Python UI development
-- a second project outside the Telegram bot ecosystem
+This project was built to:
+- create a clean note editor for problem solving
+- learn Streamlit and Python UI development
+- experiment with AI-assisted workflows
+- build something practical outside the Telegram bot ecosystem
 
-It is not meant to become a full Notion clone. It is a compact tool for personal use.
+It is not intended to become a full Notion clone or enterprise workspace.
 
 ---
 
 ## 🌐 Demo
 
-A live demo is available at: **[Vyn-Notes](https://vyn-notes.streamlit.app/)**
+Live App: **[Vyn-Notes](https://vyn-notes.streamlit.app/)**
 
-> This is a personal project, not a production workspace.
+> Personal project — built for learning and productivity.
 
 ---
 
 ## ⚙️ Tech Stack
 
-- **Python** – Core application logic
-- **Streamlit** – Lightweight UI and quick deployment
-- **MongoDB** – Persistent note storage
-- **Groq API** – AI-powered note assistance
-
----
-
-## 🚀 Quick Setup
-
-```bash
-git clone https://github.com/lib-kishore/Vyn-Notes.git
-cd Vyn-Notes
-python -m venv .venv
-# Windows
-.\.venv\Scripts\activate
-# macOS / Linux
-source .venv/bin/activate
-pip install -r requirements.txt
-copy .env.example .env  # Windows
-cp .env.example .env    # macOS / Linux
-```
-
-Then open `.env` and add your values for:
-- `MONGODB_URI`
-- `MONGODB_DB`
-- `MONGODB_NOTES_COLLECTION`
-- `MONGODB_CHATS_COLLECTION`
-- `GROQ_API_KEY`
-
----
-
-## 🔧 Run Commands
-
-```bash
-streamlit run note.py
-python reset_db.py
-```
-
-Use `streamlit run note.py` to start the app. Use `python reset_db.py` to clear all notes and chat history.
+- **Python** — Core logic
+- **Streamlit** — UI framework
+- **MongoDB Atlas** — Cloud database
+- **Groq API** — AI note assistance
 
 ---
 
 ## ✨ Features
 
-- AI-assisted note editing and chat responses
-- Minimal note editor with instant saving
-- Persistent notes stored in MongoDB
-- Simple recent note navigation and search
-- Download notes as Markdown
-- Streamlit-based UI for local use and easy hosting
+- AI-assisted note editing
+- Persistent MongoDB storage
+- Minimal and distraction-free UI
+- Instant note saving
+- Recent note navigation
+- Markdown downloads
+- Lightweight Streamlit deployment
+
+---
+
+# 🚀 Local Setup
+
+## 1. Clone Repository
+
+```bash
+git clone https://github.com/lib-kishore/Vyn-Notes.git
+cd Vyn-Notes
+```
+
+---
+
+## 2. Create Virtual Environment
+
+### Windows
+
+```bash
+python -m venv .venv
+.\.venv\Scripts\activate
+```
+
+### macOS / Linux
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+---
+
+## 3. Install Requirements
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 4. Create `.env`
+
+### Windows
+
+```bash
+copy .env.example .env
+```
+
+### macOS / Linux
+
+```bash
+cp .env.example .env
+```
+
+---
+
+## 5. Configure Environment Variables
+
+Open `.env` and add:
+
+```env
+MONGODB_URI=your_mongodb_uri
+MONGODB_DB=vynnotes
+MONGODB_NOTES_COLLECTION=notes
+MONGODB_CHATS_COLLECTION=chats
+GROQ_API_KEY=your_groq_api_key
+```
+
+---
+
+# ☁️ Streamlit Cloud Deployment
+
+VynNotes now uses `st.secrets` for cloud deployment.
+
+## Add Secrets in Streamlit Cloud
+
+Go to:
+
+```text
+App Settings → Secrets
+```
+
+Add:
+
+```toml
+MONGODB_URI = "your_mongodb_uri"
+GROQ_API_KEY = "your_groq_api_key"
+
+MONGODB_DB = "vynnotes"
+MONGODB_NOTES_COLLECTION = "notes"
+MONGODB_CHATS_COLLECTION = "chats"
+
+MONGODB_TLS_ALLOW_INVALID_CERTS = false
+```
+
+---
+
+## 🔒 Config System
+
+The app supports:
+- local `.env` development using `python-dotenv`
+- Streamlit Cloud secrets using `st.secrets`
+
+Current configuration setup:
+
+```python
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+import streamlit as st
+
+BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR / ".env")
+
+MONGODB_URI = st.secrets.get("MONGODB_URI") or os.getenv("MONGODB_URI")
+GROQ_API_KEY = st.secrets.get("GROQ_API_KEY") or os.getenv("GROQ_API_KEY")
+
+MONGODB_DB = st.secrets.get("MONGODB_DB", "vynnotes")
+MONGODB_TLS_ALLOW_INVALID_CERTS = st.secrets.get(
+    "MONGODB_TLS_ALLOW_INVALID_CERTS",
+    "false"
+).lower() in ("1", "true", "yes")
+
+MONGODB_NOTES_COLLECTION = st.secrets.get(
+    "MONGODB_NOTES_COLLECTION",
+    "notes"
+)
+
+MONGODB_CHATS_COLLECTION = st.secrets.get(
+    "MONGODB_CHATS_COLLECTION",
+    "chats"
+)
+```
+
+---
+
+## ▶️ Run App
+
+```bash
+streamlit run note.py
+```
+
+---
+
+## 🗑️ Reset Database
+
+```bash
+python reset_db.py
+```
+
+This removes all saved notes and chat history.
 
 ---
 
 ## ⚠️ Important Notes
 
-- Single-user, personal-use design only
-- No user authentication or multi-user support
-- No complex workspace, folders, or team features
-- Limited formatting by design
-- Not intended to replace full productivity suites
+- Single-user project
+- No authentication system
+- No multi-user support
+- Minimal formatting by design
+- Built for simplicity and learning
 
-> The goal is personal simplicity, not feature overload.
+> The goal is speed and clarity, not feature overload.
 
 ---
 
-## 🤝 Notes for Contributors
+## 🤝 Contributing
 
-VynNotes is open-source and welcomes improvements.
-If you contribute, please preserve the core vision:
-- simple and clean
-- focused on personal workflows
-- easy to understand and maintain
+Contributions are welcome.
+
+Please preserve the project philosophy:
+- simple
+- lightweight
+- readable
+- easy to maintain
 
 ---
 
 ## 📌 Project Status
 
-🛠️ Personal project — stable enough for daily use, but still learning and evolving.
+🛠️ Personal project — actively evolving and improving.
 
 ---
 
@@ -135,5 +262,10 @@ If you contribute, please preserve the core vision:
 
 ## 📬 Closing
 
-VynNotes is a personal project, not a Notion replacement.
-It is built to help you capture ideas quickly and learn Streamlit with a lightweight AI note workflow.
+VynNotes is not a Notion replacement.
+
+It is a lightweight AI note-taking project built for:
+- learning Streamlit
+- experimenting with AI workflows
+- capturing ideas quickly
+- staying productive without complexity
