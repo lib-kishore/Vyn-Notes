@@ -38,7 +38,7 @@ It is not meant to become a full Notion clone. It is a compact tool for personal
 
 ## 🌐 Demo
 
-A live demo is available at: **www.none.com**
+A live demo is available at: **[Vyn-Notes](https://vyn-notes.streamlit.app/)**
 
 > This is a personal project, not a production workspace.
 
